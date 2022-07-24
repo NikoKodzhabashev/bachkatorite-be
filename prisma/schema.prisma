@@ -9,3 +9,36 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  email     String   @unique
+  firstName String
+  lastName  String
+  password  String
+  role      Role     @default(CLIENT)
+}
+
+model Employee {
+  id               Int            @id @default(autoincrement())
+  createdAt        DateTime       @default(now())
+  experience       Int
+  priceList        String[]
+  description      String
+  availability     String[]
+  rating           EmployeeRating @relation(fields: [employeeRatingId], references: [id])
+  employeeRatingId Int            @unique
+}
+
+model EmployeeRating {
+  id         Int       @id @default(autoincrement())
+  employeeId Int
+  rating     Int
+  Employee   Employee?
+}
+
+enum Role {
+  CLIENT
+  EMPLOYEE
+}
