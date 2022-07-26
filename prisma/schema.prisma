@@ -11,24 +11,27 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  email     String   @unique
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  email     String    @unique
   firstName String
   lastName  String
   password  String
-  role      Role     @default(CLIENT)
+  role      Role      @default(CLIENT)
+  Employee  Employee?
 }
 
 model Employee {
-  id               Int            @id @default(autoincrement())
-  createdAt        DateTime       @default(now())
+  id               Int             @id @default(autoincrement())
+  createdAt        DateTime        @default(now())
   experience       Int
   priceList        String[]
   description      String
   availability     String[]
-  rating           EmployeeRating @relation(fields: [employeeRatingId], references: [id])
-  employeeRatingId Int            @unique
+  user             User            @relation(fields: [userId], references: [id])
+  rating           EmployeeRating? @relation(fields: [employeeRatingId], references: [id])
+  userId           Int             @unique
+  employeeRatingId Int             @unique
 }
 
 model EmployeeRating {

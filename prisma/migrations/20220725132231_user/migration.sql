@@ -22,6 +22,7 @@ CREATE TABLE "Employee" (
     "priceList" TEXT[],
     "description" TEXT NOT NULL,
     "availability" TEXT[],
+    "userId" INTEGER NOT NULL,
     "employeeRatingId" INTEGER NOT NULL,
 
     CONSTRAINT "Employee_pkey" PRIMARY KEY ("id")
@@ -40,7 +41,13 @@ CREATE TABLE "EmployeeRating" (
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Employee_userId_key" ON "Employee"("userId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Employee_employeeRatingId_key" ON "Employee"("employeeRatingId");
+
+-- AddForeignKey
+ALTER TABLE "Employee" ADD CONSTRAINT "Employee_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Employee" ADD CONSTRAINT "Employee_employeeRatingId_fkey" FOREIGN KEY ("employeeRatingId") REFERENCES "EmployeeRating"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
