@@ -1,6 +1,6 @@
-import CreateClientUserDTO from './create-client.dto';
+import User from './user.dto';
 
-export default class CreateEmployeeUserDTO extends CreateClientUserDTO {
+export default class CreateEmployeeUserDTO extends User {
   experience: number;
   description: string;
   priceList: string[];
