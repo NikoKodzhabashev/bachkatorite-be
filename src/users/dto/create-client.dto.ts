@@ -1,6 +1,3 @@
-export default class CreateClientUserDTO {
-  email: string;
-  firstName: string;
-  lastName: string;
-  password: string;
-}
+import User from './user.dto';
+
+export default class CreateClientUserDTO extends User {}
